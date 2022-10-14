@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "Twitter to Mastodon": {
+      "applicationId": "sgnzY3ZJZDWKORGwFZSqsGg1SKSjoZAbGlDy0UZt"
+    },
+    "_default": {
+      "link": "Twitter to Mastodon"
+    }
+  }
+}
