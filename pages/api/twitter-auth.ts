@@ -43,51 +43,51 @@ const handler = async (
 
       const { state, codeVerifier, codeChallenge, } = body
 
-      const twitterAuth = await getTwitterAuth({
+      let twitterAuth = await getTwitterAuth({
         state,
         codeVerifier,
         codeChallenge,
       },)
 
-      res.status(200,).json({
-        success : true,
-      },)
+      // res.status(200,).json({
+      //   success : true,
+      // },)
 
 
-      // if (!twitterAuth) {
-      //
-      //   twitterAuth = await new TwitterAuth({
-      //     status: 'created',
-      //     state: body.state,
-      //     codeVerifier: body.codeVerifier,
-      //     codeChallenge: body.codeChallenge,
-      //   })
-      //
-      //   if (twitterAuth) {
-      //     await twitterAuth.save(null, {useMasterKey: true})
-      //   }
-      //
-      //
-      // }
-      //
-      // if (twitterAuth) {
-      //
-      //   if ( !twitterAuth.get('twitterUserId') || !twitterAuth.get('twitterUsername') || !twitterAuth.get('twitterProfileImageUrl') ) {
-      //     // Refresh from Twitter
-      //   }
-      //
-      //   res.status(200,).json({
-      //     twitterUserId: twitterAuth.get('twitterUserId'),
-      //     twitterUsername: twitterAuth.get('twitterUsername'),
-      //     twitterProfileImageUrl: twitterAuth.get('twitterProfileImageUrl'),
-      //
-      //   },)
-      //
-      // }
+      if (!twitterAuth) {
 
-      // if ( !twitterAuth ) {
-      //   res.status(404).send('Not found')
-      // }
+        twitterAuth = await new TwitterAuth({
+          status        : 'created',
+          state         : body.state,
+          codeVerifier  : body.codeVerifier,
+          codeChallenge : body.codeChallenge,
+        },)
+
+        if (twitterAuth) {
+          await twitterAuth.save(null, { useMasterKey : true, },)
+        }
+
+
+      }
+
+      if (twitterAuth) {
+
+        if ( !twitterAuth.get('twitterUserId',) || !twitterAuth.get('twitterUsername',) || !twitterAuth.get('twitterProfileImageUrl',) ) {
+          // Refresh from Twitter
+        }
+
+        res.status(200,).json({
+          twitterUserId          : twitterAuth.get('twitterUserId',),
+          twitterUsername        : twitterAuth.get('twitterUsername',),
+          twitterProfileImageUrl : twitterAuth.get('twitterProfileImageUrl',),
+
+        },)
+
+      }
+
+      if ( !twitterAuth ) {
+        res.status(404,).send('Not found',)
+      }
 
 
     }

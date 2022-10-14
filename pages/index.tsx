@@ -8,6 +8,8 @@ type Props = {
 }
 
 const Home: NextPage<Props> = ({ twitterAuthLink, },) => {
+  console.log(twitterAuthLink,)
+
   return (
     <div className={'w-full h-full'}>
       <Head>
