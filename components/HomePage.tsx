@@ -312,7 +312,7 @@ const HomePage: NextPage<Props> = () => {
             <a
               className={'rounded border-white border text-white text-center px-3 py-2 mt-12'}
             >
-              Learn more
+              Ummmm ... what?
             </a>
           </Link>
 
