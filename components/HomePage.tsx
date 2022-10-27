@@ -9,6 +9,7 @@ import Link                                                            from 'nex
 import cookie                                                          from 'cookiejs'
 import { clearTimeout, }                                               from 'timers'
 import { NextPage, }                                                   from 'next'
+import PageContainer                                                   from './PageContainer'
 
 const COOKIE_KEY = 'twittermastodon-homepage'
 const COOKIE_VALUE = 'has seen homepage'
@@ -268,7 +269,7 @@ const HomePage: NextPage<Props> = () => {
   }
 
   return (
-    <>
+    <PageContainer>
       <div className={'w-full h-full flex flex-col flex items-center pt-12'}>
 
         <p id={'headline'} className={'reveal flex justify-center mb-5 text-white font-display text-center text-4xl flex-wrap'}>
@@ -287,7 +288,10 @@ const HomePage: NextPage<Props> = () => {
           <span>Something</span>
           <span>Different</span>
         </p>
-        <div id={'paragraph'} className={'relative w-full reveal font-sans flex flex-col justify-center items-center text-white flex-wrap text-lg'}>
+        <div
+          id={'paragraph'}
+          className={'relative w-full reveal font-sans flex flex-col justify-center items-center text-white flex-wrap text-lg'}
+        >
           <span>Don&apos;t worry.</span>
           <span>You&apos;ve done this before.</span>
           <span>You did it when you went from having no email to having email.</span>
@@ -296,11 +300,6 @@ const HomePage: NextPage<Props> = () => {
           <span>Now it&apos;s time to for Mastodon.</span>
         </div>
         <div id={'buttons'} className={'w-full flex flex-col mt-12 opacity-0'}>
-          {/*<div className={'mb-5 flex flex-row items-center bg-white rounded shadow p-5'}>*/}
-          {/*  <FaTwitter style={{ color : '#1da1f2', }} className={'text-6xl'}/>*/}
-          {/*  <ImArrowRight style={{ color : '#71717A', }} className={'text-4xl mx-8'}/>*/}
-          {/*  <FaMastodon style={{ color : '#5c4fe5', }} className={'text-6xl'}/>*/}
-          {/*</div>*/}
           <Link href={'/start'}>
             <a
               className={'rounded text-violet-100 text-center px-3 py-2 mt-12 w-full bg-violet-700'}
@@ -310,7 +309,7 @@ const HomePage: NextPage<Props> = () => {
           </Link>
           <Link href={'/the-problem'}>
             <a
-              className={'rounded border-white border text-white text-center px-3 py-2 mt-12'}
+              className={'rounded border-white border text-white text-center px-3 py-2 mt-12 hover:border-pink-300 hover:text-pink-300 button'}
             >
               Ummmm ... what?
             </a>
@@ -339,7 +338,7 @@ const HomePage: NextPage<Props> = () => {
         }
       </Modal>
 
-    </>
+    </PageContainer>
   )
 }
 

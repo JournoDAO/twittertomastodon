@@ -2,6 +2,8 @@ import React, { FunctionComponent, useEffect, useState, } from 'react'
 import { useRouter, }                                     from 'next/router'
 import { IoMdMenu, IoMdClose, }                           from 'react-icons/io'
 import Link                                               from 'next/link'
+import { FaMastodon, FaTwitter, }                         from 'react-icons/fa'
+import { ImArrowRight, }                                  from 'react-icons/im'
 
 type Props = {}
 
@@ -20,7 +22,6 @@ const Nav: FunctionComponent<Props> = () => {
     router.events.on('routeChangeStart', handleRouteChange,)
 
     return () => {
-      console.log('unmounting',)
       router.events.off('routeChangeStart', handleRouteChange,)
     }
   }, [],)
@@ -30,17 +31,72 @@ const Nav: FunctionComponent<Props> = () => {
   }
 
   return (
-    <nav className={'flex flex-row justify-end'}>
-      <button
-        className={'p-3'}
-        onClick={toggleMenuOpen}
+    <nav className={'flex flex-row justify-end md:justify-center'}>
+      <div
+        id={'top-nav'}
+        className={'flex flex-row items-center w-full p-5 max-w-4xl hidden md:block'}
       >
-        <IoMdMenu className={'text-white text-4xl'} />
+        <Link href={'/'}>
+          <a>
+            <div className={'flex flex-row items-center justify-center bg-white rounded-full shadow px-3 py-2 w-32 cursor-pointer mr-12'}>
+              <FaTwitter style={{ color : '#1da1f2', }} className={'text-xl'}/>
+              <ImArrowRight className={'text-xl mx-2 text-stone-500'}/>
+              <FaMastodon style={{ color : '#5c4fe5', }} className={'text-xl'}/>
+            </div>
 
-      </button>
+          </a>
+        </Link>
+        <Link href={'/start'}>
+          <a className={''}>
+            Start
+          </a>
+        </Link>
+        <Link href={'/the-problem'}>
+          <a className={''}>
+            The Problem
+          </a>
+        </Link>
+        <Link
+          href={'/why-mastodon'}
+        >
+          <a>
+            Why Mastodon?
+          </a>
+        </Link>
+        <Link
+          href={'/future-tools'}
+        >
+          <a>
+            Future Tools
+          </a>
+        </Link>
+
+      </div>
+      <div className={'flex flex-row w-full justify-between p-3'}>
+        <Link href={'/'}>
+          <a>
+
+            <div
+              className={'flex flex-row items-center justify-center bg-white rounded-full shadow px-3 py-2 cursor-pointer'}>
+              <FaTwitter style={{ color : '#1da1f2', }} className={'text-xl'}/>
+              <ImArrowRight className={'text-xl mx-2 text-stone-500'}/>
+              <FaMastodon style={{ color : '#5c4fe5', }} className={'text-xl'}/>
+            </div>
+
+          </a>
+        </Link>
+        <button
+          className={'md:hidden'}
+          onClick={toggleMenuOpen}
+        >
+          <IoMdMenu className={'text-white text-4xl'} />
+
+        </button>
+
+      </div>
       <div
         id={'sidenav'}
-        className={`fixed h-full w-64 p-5 bg-violet-50 shadow-xl ${isSidenavOpen ? '' : 'closed'}`}
+        className={`flex flex-col fixed md:hidden h-full w-64 p-5 bg-violet-50 shadow-xl z-10 ${isSidenavOpen ? '' : 'closed'}`}
       >
         <div
           className={'flex flex-row justify-end mb-4'}
@@ -89,7 +145,40 @@ const Nav: FunctionComponent<Props> = () => {
               </a>
             </Link>
           </li>
+          <li>
+            <Link
+              href={'/future-tools'}
+            >
+              <a>
+                Future Tools
+              </a>
+            </Link>
+
+          </li>
+          <li>
+            <Link
+              href={'/resources'}
+            >
+              <a>
+                Resources
+              </a>
+            </Link>
+
+          </li>
+          <li>
+            <Link
+              href={'/about'}
+            >
+              <a>
+                About
+              </a>
+            </Link>
+
+          </li>
         </ul>
+        <div className={'flex flex-row justify-center w-full mt-auto'}>
+          <span className={'text-stone-500'}>&copy;<a href={'https://journodao.xyz'}>JournoDAO</a> 2022</span>
+        </div>
       </div>
     </nav>
   )

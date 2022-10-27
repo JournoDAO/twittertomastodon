@@ -108,7 +108,7 @@
 
 #__next {
   height: 100%;
-  /*overflow: scroll;*/
+  /*overflow: hidden;*/
 }
 
 html,
@@ -134,7 +134,7 @@ h2 {
 }
 
 p {
-  @apply text-white max-w-xl text-left md:w-2/3 mb-5
+  @apply text-white text-left mb-5
 }
 
 p span:after {
@@ -145,8 +145,28 @@ p.reveal span {
   /*animation: wordreveal 1s;*/
 }
 
+span {
+  @apply text-white
+}
+
 a {
-  @apply text-fuchsia-700 hover:underline
+  @apply underline hover:text-fuchsia-300
+}
+
+a.rounded:not(.button) {
+  @apply no-underline hover:text-white
+}
+
+a.button {
+  @apply no-underline
+}
+
+ul li {
+  @apply text-white text-xl mb-8
+}
+
+ul li a {
+  @apply font-bold
 }
 
 nav ul li {
@@ -156,7 +176,7 @@ nav ul li {
 }
 
 nav ul li a {
-  @apply hover:underline
+  @apply no-underline hover:underline
 }
 
 ul.card-list li {
@@ -165,6 +185,10 @@ ul.card-list li {
 
 .bg-white p {
   @apply text-stone-500
+}
+
+#top-nav a {
+  @apply text-white font-display text-xl mr-8 hover:text-fuchsia-300 no-underline
 }
 
 #sidenav {

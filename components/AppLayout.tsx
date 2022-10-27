@@ -46,12 +46,16 @@ const AppLayout: FunctionComponent<Props> = ({ children, },) => {
 
       <Nav />
 
-      <main className={'w-full h-full flex flex-col flex items-center py-8 px-5'}>
+      <main className={'w-full flex flex-col flex items-center py-8 px-5'}>
         {children}
       </main>
 
-      <footer>
-
+      <footer className={'flex flex-row justify-center'}>
+        <div
+          className={'w-full flex flex-row justify-between items-center p-5 max-w-4xl hidden md:block'}
+        >
+          <span>&copy;<a href={'https://journodao.xyz'}>JournoDAO</a> 2022</span>
+        </div>
       </footer>
 
     </>
