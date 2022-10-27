@@ -108,28 +108,102 @@
 
 #__next {
   height: 100%;
+  /*overflow: scroll;*/
 }
 
 html,
 body {
   height: 100%;
-  overflow: hidden;
+  overflow: scroll;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
   Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+body {
+  @apply bg-gradient-to-br from-cyan-500 to-purple-500
+}
+
 h1 {
-  @apply font-bold text-2xl text-gray-700
+  @apply font-bold text-4xl text-white mb-3 font-display
 }
 
 h2 {
-  @apply font-bold text-xl
+  @apply font-bold text-xl text-white
 }
 
 p {
-  @apply text-gray-500 max-w-xl
+  @apply text-white max-w-xl text-left md:w-2/3 mb-5
+}
+
+p span:after {
+  content: "\00a0";
+}
+
+p.reveal span {
+  /*animation: wordreveal 1s;*/
+}
+
+a {
+  @apply text-fuchsia-700 hover:underline
+}
+
+nav ul li {
+  width: 100%;
+  text-align: center;
+  @apply text-2xl mb-8 text-violet-600 font-display
+}
+
+nav ul li a {
+  @apply hover:underline
+}
+
+ul.card-list li {
+  @apply bg-white rounded p-5 shadow mb-8
+}
+
+.bg-white p {
+  @apply text-stone-500
+}
+
+#sidenav {
+  right: 0;
+  transition: right .2s ease-in;
+}
+
+#sidenav.closed {
+  right: -16rem;
+}
+
+#headline span {
+  opacity: 0;
+  display: none;
+}
+
+#paragraph span {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.homepage-step:hover p {
+  @apply text-purple-500
+}
+
+#headline span.fast-fade-in {
+  display: block;
+  animation: fadein .3s ease-in forwards;
+}
+
+.fade-in {
+  animation: fadein 1s forwards;
+}
+
+.fade-out {
+  animation: fadeout 1s forwards;
 }
 
 .fa-spin {
@@ -142,5 +216,32 @@ p {
   }
   100% {
     transform: rotate(359deg);
+  }
+}
+
+@keyframes wordreveal {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

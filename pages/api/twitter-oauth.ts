@@ -37,41 +37,48 @@ const handler = async (
   // console.log(req.body)
 
   // Extract state and code from query string
-  const { state, code, } = req.query
+  const { oauth_token, oauth_verifier, } = req.query
 
   // console.log(`state: ${state}`)
   // console.log(`code: ${code}`)
 
-  if ( !code || !state ) {
+  if ( !oauth_token || !oauth_verifier ) {
     res.status(400,).send('Bad request',)
     return
   }
 
   const queryTwitterAuth = new ParseServer.Query('TwitterAuth',)
-  queryTwitterAuth.equalTo('state', state,)
+  queryTwitterAuth.equalTo('oauth_token', oauth_token,)
   queryTwitterAuth.addDescending('updatedAt',)
   const twitterAuth = await queryTwitterAuth.first({ useMasterKey : true, },)
 
-  if (!twitterAuth || !code) {
+  if (!twitterAuth || !oauth_token) {
     res.status(500,).send('No Twitter auth session found',)
     return
   }
-  twitterAuth.get('codeVerifier',)
 
   // Obtain access token
   const client = new TwitterApi({
-    clientId     : process.env.TWITTER_CLIENT_ID as string,
-    clientSecret : process.env.TWITTER_CLIENT_SECRET as string,
+    appKey       : process.env.TWITTER_APP_API_KEY as string,
+    appSecret    : process.env.TWITTER_APP_API_KEY_SECRET as string,
+    accessToken  : oauth_token,
+    accessSecret : twitterAuth.get('oauth_token_secret',),
   },)
 
-  client.loginWithOAuth2({
-    code,
-    codeVerifier : twitterAuth.get('codeVerifier',),
-    redirectUri  : `${process.env.HOST_DOMAIN_PUBLIC}/api/twitter-oauth`,
-  },)
-    .then(async ( { client: loggedClient, accessToken, refreshToken, expiresIn, }, ) => {
+  client.login(oauth_verifier,)
+    .then(async ({ userId, screenName, accessToken, accessSecret, client, },) => {
+      const localUser = new ParseServer.User()
+      await localUser.linkWith('twitter', {
+        authData : {
+          id                : userId,
+          consumer_key      : process.env.TWITTER_APP_API_KEY,
+          consumer_secret   : process.env.TWITTER_APP_API_KEY_SECRET,
+          auth_token        : accessToken,
+          auth_token_secret : accessSecret,
+        },
+      },)
 
-      const { data: userObject, } = await loggedClient.v2.me({ 'user.fields' : 'profile_image_url', },)
+      const userObject = await client.currentUser()
 
       console.log(userObject,)
 
@@ -80,33 +87,26 @@ const handler = async (
       queryTwitterAuthInner.equalTo('twitterUserId', userObject.id,)
       const existingTwitterAuths = await queryTwitterAuthInner.find({ useMasterKey : true, },)
 
-      await Promise.all(existingTwitterAuths.map(async (existingTwitterAuth,) => {
-        if (existingTwitterAuth.id === twitterAuth.id) {
+      await Promise.all(existingTwitterAuths.map(async ( existingTwitterAuth, ) => {
+        if ( existingTwitterAuth.id === twitterAuth.id ) {
           await existingTwitterAuth.destroy({ useMasterKey : true, },)
         }
       },),)
 
-      const expiresAtInt = (new Date()).getTime() + expiresIn
-      const expiresAt = new Date(expiresAtInt,)
-
-      twitterAuth.set('accessToken', accessToken,)
-      twitterAuth.set('refreshToken', refreshToken,)
-      twitterAuth.set('expiresAt', expiresAt,)
-      twitterAuth.set('twitterUserId', userObject.id,)
-      twitterAuth.set('twitterUsername', userObject.username,)
-      twitterAuth.set('twitterProfileImageUrl', userObject.profile_image_url,)
+      twitterAuth.set('twitterUserId', userObject.id_str,)
+      twitterAuth.set('twitterUsername', userObject.name,)
+      twitterAuth.set('twitterProfileImageUrl', userObject.profile_image_url_https,)
+      twitterAuth.set('twitterBannerImageUrl', userObject.profile_banner_url,)
+      twitterAuth.set('twitterScreenName', userObject.screen_name,)
+      twitterAuth.set('user', localUser,)
       await twitterAuth.save(null, { useMasterKey : true, },)
 
       // console.log(userObject)
 
-      res.redirect(`${process.env.HOST_DOMAIN}/claim`,)
-    },)
-    .catch((err,) =>{
-      console.log(err,)
-      res.status(403,).send('Invalid verifier or access tokens!',)
-    },)
+      res.redirect(`/?sessionId=${localUser.getSessionToken()}`,)
 
-  // res.status(200)
+
+    },)
 
 }
 

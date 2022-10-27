@@ -1,13 +1,19 @@
-import React, { FunctionComponent, useCallback, useState, } from 'react'
-import { FaSpinner, }                                       from 'react-icons/fa'
-import Button                                               from './Button'
-import { useIsMounted, }                                    from '../utils'
-import { useTwitterAuth, }                                  from '../utils/twitter'
-import { IOAuth2RequestTokenResult, }                       from 'twitter-api-v2'
-import ParseClient, { TwitterAuth, }                        from '../utils/parseClient'
+import React, { FunctionComponent, useCallback, useEffect, useState, } from 'react'
+import { FaSpinner, }                                                  from 'react-icons/fa'
+import Button                                                          from './Button'
+import { useIsMounted, }                                               from '../utils'
+import { useTwitterAuth, }                                             from '../utils/twitter'
+import { IOAuth2RequestTokenResult, }                                  from 'twitter-api-v2'
+import ParseClient, { TwitterAuth, }                                   from '../utils/parseClient'
+import { LiveQuerySubscription, }                                      from 'parse'
 
 type Props = {
-  twitterAuthLink: IOAuth2RequestTokenResult
+  twitterAuthLink: {
+    oauth_token: string
+    oauth_token_secret: string
+    oauth_callback_confirmed: 'true'
+    url: string
+  }
 }
 
 const LoginWithTwitter: FunctionComponent<Props> = ({ twitterAuthLink, },) => {
@@ -15,6 +21,7 @@ const LoginWithTwitter: FunctionComponent<Props> = ({ twitterAuthLink, },) => {
   const [ isLoggingIn, setIsLoggingIn, ] = useState(false,)
   const [ isAuthorizingTwitter, setIsAuthorizingTwitter, ] = useState(false,)
   const [ twitterAuthError, setTwitterAuthError, ] = useState<string | null>(null,)
+  const [ twitterAuthSubscription, setTwitterAuthSubscription, ] = useState<LiveQuerySubscription | null>(null,)
 
   const { isMounted, } = useIsMounted()
 
@@ -33,9 +40,9 @@ const LoginWithTwitter: FunctionComponent<Props> = ({ twitterAuthLink, },) => {
     const _auth = async (): Promise<void> => {
 
       if ( isMounted ) {
-        window.localStorage.setItem('twitter-state', twitterAuthLink.state,)
-        window.localStorage.setItem('twitter-codeVerifier', twitterAuthLink.codeVerifier,)
-        window.localStorage.setItem('twitter-codeChallenge', twitterAuthLink.codeChallenge,)
+        window.localStorage.setItem('twitter-oauth_token', twitterAuthLink.oauth_token,)
+        window.localStorage.setItem('twitter-oauth_token_secret', twitterAuthLink.oauth_token_secret,)
+        window.localStorage.setItem('twitter-oauth_callback_confirmed', twitterAuthLink.oauth_callback_confirmed,)
       }
 
       if ( !ParseClient.User.current() ) {
@@ -47,9 +54,9 @@ const LoginWithTwitter: FunctionComponent<Props> = ({ twitterAuthLink, },) => {
             'Content-Type' : 'application/json',
           },
           body : JSON.stringify({
-            state         : twitterAuthLink.state,
-            codeVerifier  : twitterAuthLink.codeVerifier,
-            codeChallenge : twitterAuthLink.codeChallenge,
+            oauth_token              : twitterAuthLink.oauth_token,
+            oauth_token_secret       : twitterAuthLink.oauth_token_secret,
+            oauth_callback_confirmed : twitterAuthLink.oauth_callback_confirmed,
           },),
         },).catch(( err, ) => {
           setTwitterAuthError(JSON.stringify(err,),)
@@ -69,23 +76,9 @@ const LoginWithTwitter: FunctionComponent<Props> = ({ twitterAuthLink, },) => {
 
       }
 
-      if ( ParseClient.User.current() ) {
-        const twitterAuth = new TwitterAuth({
-          status        : 'created',
-          state         : twitterAuthLink.state,
-          codeVerifier  : twitterAuthLink.codeVerifier,
-          codeChallenge : twitterAuthLink.codeChallenge,
-          user          : ParseClient.User.current(),
-        },)
-
-        await twitterAuth.save()
-
-      }
-
-
       if ( isMounted ) {
         const url = new URL(twitterAuthLink.url,)
-        window.open(url,)
+        window.location.href = url
       }
 
     }
@@ -93,6 +86,15 @@ const LoginWithTwitter: FunctionComponent<Props> = ({ twitterAuthLink, },) => {
     _auth()
 
   }
+
+  // On mount
+  useEffect(() => {
+    return () => {
+      if (twitterAuthSubscription) {
+        twitterAuthSubscription.unsubscribe()
+      }
+    }
+  }, [],)
 
   return (
     <Button

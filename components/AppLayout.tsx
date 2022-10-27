@@ -1,6 +1,8 @@
 import React, { FunctionComponent, HTMLAttributes, useEffect, useState, } from 'react'
 import Head                                                               from 'next/head'
 import { useRouter, }                                                     from 'next/router'
+import LoginWithTwitter                                                   from './LoginWithTwitter'
+import Nav                                                                from './Nav'
 
 
 type Props = HTMLAttributes<HTMLDivElement> & {}
@@ -37,26 +39,19 @@ const AppLayout: FunctionComponent<Props> = ({ children, },) => {
   return (
     <>
       <Head>
-        <title>JournoDAO App</title>
-        <meta name={'description'} content={'Give $JOURNO to a journalist you love.'}/>
+        <title>Twitter to Mastodon</title>
+        <meta name={'description'} content={'Make the switch to Mastodon without the hassle.'}/>
         <link rel={'icon'} href={'/favicon.ico'}/>
       </Head>
 
-      <main className={'h-full w-full'}>
+      <Nav />
 
-        <div className={'h-full w-full overflow-scroll pb-36'}>
-          {children}
-        </div>
+      <main className={'w-full h-full flex flex-col flex items-center py-8 px-5'}>
+        {children}
       </main>
 
-      <footer className={'flex flex-row items-center justify-between container mx-auto h-32 px-16'}>
-        <div>
-          <span className={'text-orange-400 font-serif text-sm'}>© 2022 JournoDAO</span>
-        </div>
-        <div>
-          <a href={'https://twitter.com/JournoDAO'} target={'_blank'}
-            className={'text-orange-400 font-serif text-sm hover:underline'} rel={'noreferrer'}>Twitter</a>
-        </div>
+      <footer>
+
       </footer>
 
     </>

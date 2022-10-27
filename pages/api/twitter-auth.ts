@@ -10,16 +10,12 @@ type Data = {
 }
 
 type GetTwitterAuthProps = {
-  state: string
-  codeVerifier: string
-  codeChallenge: string
+  oauth_token: string
 }
 
-const getTwitterAuth = async ({ state, codeVerifier, codeChallenge, }: GetTwitterAuthProps,): Promise<ParseObject | undefined> => {
+const getTwitterAuth = async ({ oauth_token, }: GetTwitterAuthProps,): Promise<ParseObject | undefined> => {
   const queryTwitterAuth = new ParseServer.Query('TwitterAuth',)
-  queryTwitterAuth.equalTo('state', state,)
-  queryTwitterAuth.equalTo('codeVerifier', codeVerifier,)
-  queryTwitterAuth.equalTo('codeChallenge', codeChallenge,)
+  queryTwitterAuth.equalTo('oauth_token', oauth_token,)
   return await queryTwitterAuth.first({ useMasterKey : true, },)
 }
 
@@ -36,17 +32,15 @@ const handler = async (
       body = JSON.parse(body,)
     }
 
-    if ( !body || !body.state || !body.codeVerifier || !body.codeChallenge ) {
+    if ( !body || !body.oauth_token || !body.oauth_token_secret || !body.oauth_callback_confirmed ) {
       res.status(500,)
       return
     } else {
 
-      const { state, codeVerifier, codeChallenge, } = body
+      const { oauth_token, oauth_token_secret, oauth_callback_confirmed, } = body
 
       let twitterAuth = await getTwitterAuth({
-        state,
-        codeVerifier,
-        codeChallenge,
+        oauth_token,
       },)
 
       // res.status(200,).json({
@@ -57,10 +51,10 @@ const handler = async (
       if (!twitterAuth) {
 
         twitterAuth = await new TwitterAuth({
-          status        : 'created',
-          state         : body.state,
-          codeVerifier  : body.codeVerifier,
-          codeChallenge : body.codeChallenge,
+          status : 'created',
+          oauth_token,
+          oauth_token_secret,
+          oauth_callback_confirmed,
         },)
 
         if (twitterAuth) {
@@ -71,10 +65,6 @@ const handler = async (
       }
 
       if (twitterAuth) {
-
-        if ( !twitterAuth.get('twitterUserId',) || !twitterAuth.get('twitterUsername',) || !twitterAuth.get('twitterProfileImageUrl',) ) {
-          // Refresh from Twitter
-        }
 
         res.status(200,).json({
           twitterUserId          : twitterAuth.get('twitterUserId',),
