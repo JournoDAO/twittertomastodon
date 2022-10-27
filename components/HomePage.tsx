@@ -297,7 +297,7 @@ const HomePage: NextPage<Props> = () => {
           <span>You did it when you went from having no email to having email.</span>
           <span>You did it when you went from AOL to Netscape.</span>
           <span>You did it when you went from MySpace to Facebook.</span>
-          <span>Now it&apos;s time to for Mastodon.</span>
+          <span>Now it&apos;s time for Mastodon.</span>
         </div>
         <div id={'buttons'} className={'w-full flex flex-col mt-12 opacity-0'}>
           <Link href={'/start'}>

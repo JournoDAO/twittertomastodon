@@ -133,6 +133,10 @@ h2 {
   @apply font-bold text-xl text-white
 }
 
+h3 {
+  @apply text-white font-display text-xl mb-1
+}
+
 p {
   @apply text-white text-left mb-5
 }

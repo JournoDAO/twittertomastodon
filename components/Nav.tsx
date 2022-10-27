@@ -34,7 +34,7 @@ const Nav: FunctionComponent<Props> = () => {
     <nav className={'flex flex-row justify-end md:justify-center'}>
       <div
         id={'top-nav'}
-        className={'flex flex-row items-center w-full p-5 max-w-4xl hidden md:block'}
+        className={'flex flex-row items-center w-full p-5 max-w-4xl invisible md:visible'}
       >
         <Link href={'/'}>
           <a>
@@ -43,7 +43,6 @@ const Nav: FunctionComponent<Props> = () => {
               <ImArrowRight className={'text-xl mx-2 text-stone-500'}/>
               <FaMastodon style={{ color : '#5c4fe5', }} className={'text-xl'}/>
             </div>
-
           </a>
         </Link>
         <Link href={'/start'}>
@@ -72,7 +71,7 @@ const Nav: FunctionComponent<Props> = () => {
         </Link>
 
       </div>
-      <div className={'flex flex-row w-full justify-between p-3'}>
+      <div className={'flex flex-row w-full justify-between p-3 md:hidden'}>
         <Link href={'/'}>
           <a>
 
@@ -86,7 +85,6 @@ const Nav: FunctionComponent<Props> = () => {
           </a>
         </Link>
         <button
-          className={'md:hidden'}
           onClick={toggleMenuOpen}
         >
           <IoMdMenu className={'text-white text-4xl'} />
