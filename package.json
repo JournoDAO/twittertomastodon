@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@socialgouv/matomo-next": "^1.4.0",
     "cookiejs": "^2.1.2",
     "cors": "^2.8.5",
     "lodash": "^4.17.21",

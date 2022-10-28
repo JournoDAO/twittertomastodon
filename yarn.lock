@@ -253,6 +253,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@socialgouv/matomo-next@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "@socialgouv/matomo-next@npm:1.4.0"
+  peerDependencies:
+    next: ">= 9.5.5"
+  checksum: 24aabfaea5ed2b1e65d18c8be31d35aa48ac6922972eddd126d3fcdd68aa932d735057bd82247876bf9fe362cb2bb4629119130864c47e8b1e13e0b78a50fe15
+  languageName: node
+  linkType: hard
+
 "@swc/helpers@npm:0.4.11":
   version: 0.4.11
   resolution: "@swc/helpers@npm:0.4.11"
@@ -3567,6 +3576,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "twittertomastodon@workspace:."
   dependencies:
+    "@socialgouv/matomo-next": ^1.4.0
     "@types/cors": ^2.8.12
     "@types/lodash": ^4.14.186
     "@types/node": 18.8.5
