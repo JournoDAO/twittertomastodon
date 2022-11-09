@@ -24,14 +24,14 @@ const StartPage: NextPage<Props> = () => {
       >
 
         <div
-          className={'mastodon-step w-full bg-violet-50 shadow-xl rounded p-8 mb-8 cursor-pointer text-slate-700'}
+          className={'mastodon-step w-full bg-violet-50 shadow-xl rounded p-8 mb-8 text-slate-700'}
         >
           <div className={'flex flex-row items-center w-full mb-2'}>
             <h2 className={'text-violet-800'}>Step 1</h2>
             <button
               onClick={handleInfoClick}
             >
-              <IoMdInformationCircleOutline className={'text-xl ml-3 text-stone-400'} />
+              {/*<IoMdInformationCircleOutline className={'text-xl ml-3 text-stone-400'} />*/}
 
             </button>
           </div>
@@ -56,11 +56,12 @@ const StartPage: NextPage<Props> = () => {
 
 
         <div
-          className={'mastodon-step w-full bg-violet-50 shadow-xl rounded p-8 mb-8 cursor-pointer text-slate-700'}
+          className={'mastodon-step w-full bg-violet-50 shadow-xl rounded p-8 mb-8 text-slate-700'}
         >
           <div className={'flex flex-row items-center w-full mb-2'}>
             <h2 className={'text-violet-800'}>Step 2</h2>
-            <IoMdInformationCircleOutline className={'text-xl ml-3 text-stone-400'}/>
+            <span className={'ml-3 text-stone-400'}>(Optional)</span>
+            {/*<IoMdInformationCircleOutline className={'text-xl ml-3 text-stone-400'}/>*/}
           </div>
           <p className={'text-left md:w-2/3 mb-5 text-stone-500'}>
             Connect Twitter to Mastodon
@@ -77,11 +78,11 @@ const StartPage: NextPage<Props> = () => {
         </div>
 
         <div
-          className={'mastodon-step w-full bg-violet-50 shadow-xl rounded p-8 mb-8 cursor-pointer text-slate-700'}
+          className={'mastodon-step w-full bg-violet-50 shadow-xl rounded p-8 mb-8 text-slate-700'}
         >
           <div className={'flex flex-row items-center w-full mb-2'}>
             <h2 className={'text-violet-800'}>Step 3</h2>
-            <IoMdInformationCircleOutline className={'text-xl ml-3 text-stone-400'}/>
+            {/*<IoMdInformationCircleOutline className={'text-xl ml-3 text-stone-400'}/>*/}
           </div>
           <p className={'text-left md:w-2/3 mb-5 text-stone-500'}>
             Add your Mastodon username in your Twitter bio
@@ -90,6 +91,26 @@ const StartPage: NextPage<Props> = () => {
             <a
               className={'flex flex-row items-center justify-center px-3 py-2 bg-pink-500 rounded text-white w-1/2 text-center'}
               href={'https://twitter.com/settings/profile'}
+            >
+              <span>Let&apos;s go</span>
+              <BsBoxArrowUpRight className={'ml-3'}/>
+            </a>
+          </div>
+        </div>
+        <div
+          className={'mastodon-step w-full bg-violet-50 shadow-xl rounded p-8 mb-8 text-slate-700'}
+        >
+          <div className={'flex flex-row items-center w-full mb-2'}>
+            <h2 className={'text-violet-800'}>Step 4</h2>
+            {/*<IoMdInformationCircleOutline className={'text-xl ml-3 text-stone-400'}/>*/}
+          </div>
+          <p className={'text-left md:w-2/3 mb-5 text-stone-500'}>
+            Find your people with Debirdify
+          </p>
+          <div className={'w-full flex flex-row items-center mt-3 justify-end'}>
+            <a
+              className={'flex flex-row items-center justify-center px-3 py-2 bg-pink-500 rounded text-white w-1/2 text-center'}
+              href={'https://pruvisto.org/debirdify/'}
             >
               <span>Let&apos;s go</span>
               <BsBoxArrowUpRight className={'ml-3'}/>
