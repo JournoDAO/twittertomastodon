@@ -34,7 +34,7 @@ const Nav: FunctionComponent<Props> = () => {
     <nav className={'flex flex-row justify-end md:justify-center'}>
       <div
         id={'top-nav'}
-        className={'flex flex-row items-center w-full p-5 max-w-4xl invisible md:visible'}
+        className={'flex flex-row items-center w-full p-5 max-w-4xl hidden invisible md:visible md:flex md:relative'}
       >
         <Link href={'/'}>
           <a>
