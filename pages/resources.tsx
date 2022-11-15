@@ -30,6 +30,9 @@ const ResourcesPage: FunctionComponent<Props> = (props,) => {
           <a href={'https://www.youtube.com/watch?v=S57uhCQBEk0'}>Mastodon & Fediverse Explained (video)</a>
         </li>
         <li>
+          <a href={'https://matthiasott.com/notes/converting-your-twitter-archive-to-markdown'}>Converting Your Twitter Archive to Markdown</a>
+        </li>
+        <li>
           <a href={'https://mcgodwin.com/en/2018/08/18/twitter-mastodon/'}>Twitter to Mastodon</a>
         </li>
       </ul>
