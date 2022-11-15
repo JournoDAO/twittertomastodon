@@ -36,19 +36,43 @@ const StartPage: NextPage<Props> = () => {
             </button>
           </div>
           <p className={'text-left md:w-2/3 mb-5 text-stone-500'}>
-            Create a Mastodon account on mastodon.social
+            Create a Mastodon account on any of these servers:
             {/*<Link href={''}>*/}
             {/*  <a className={'underline'}>Read more</a>*/}
             {/*</Link>*/}
           </p>
 
-          <div className={'w-full flex flex-row items-center mt-3 justify-end'}>
+          <div className={'w-full flex flex-row items-center mt-3'}>
             <a
-              className={'flex flex-row items-center justify-center px-3 py-2 bg-pink-500 rounded text-white w-1/2 text-center'}
-              href={'https://mastodon.social'}
+              className={'flex flex-row items-center justify-center text-center'}
+              href={'https://mastodon.cloud'}
+              target={'_blank'}
+              rel={'noreferrer'}
             >
-              <span>Let&apos;s go</span>
-              <BsBoxArrowUpRight className={'ml-3'} />
+              <span className={'text-slate-700'}>mastodon.cloud</span>
+              {/*<BsBoxArrowUpRight className={'ml-3 text-slate-700'} />*/}
+            </a>
+          </div>
+          <div className={'w-full flex flex-row items-center mt-3'}>
+            <a
+              className={'flex flex-row items-center justify-center text-center'}
+              href={'https://universeodon.com'}
+              target={'_blank'}
+              rel={'noreferrer'}
+            >
+              <span className={'text-slate-700'}>universeodon.com</span>
+              {/*<BsBoxArrowUpRight className={'ml-3 text-slate-700'}/>*/}
+            </a>
+          </div>
+          <div className={'w-full flex flex-row items-center mt-3'}>
+            <a
+              className={'flex flex-row items-center justify-center text-center'}
+              href={'https://mstdn.party'}
+              target={'_blank'}
+              rel={'noreferrer'}
+            >
+              <span className={'text-slate-700'}>mstdn.party</span>
+              {/*<BsBoxArrowUpRight className={'ml-3 text-slate-700'}/>*/}
             </a>
           </div>
 
@@ -64,15 +88,17 @@ const StartPage: NextPage<Props> = () => {
             {/*<IoMdInformationCircleOutline className={'text-xl ml-3 text-stone-400'}/>*/}
           </div>
           <p className={'text-left md:w-2/3 mb-5 text-stone-500'}>
-            Connect Twitter to Mastodon
+            Setup crossposting from<br /> Twitter &lsaquo;&rsaquo; Mastodon
           </p>
-          <div className={'w-full flex flex-row items-center mt-3 justify-end'}>
+          <div className={'w-full flex flex-row items-center mt-3'}>
             <a
-              className={'flex flex-row items-center justify-center px-3 py-2 bg-pink-500 rounded text-white w-1/2 text-center'}
+              className={'flex flex-row items-center justify-center text-center'}
               href={'https://moa.party'}
+              target={'_blank'}
+              rel={'noreferrer'}
             >
-              <span>Let&apos;s go</span>
-              <BsBoxArrowUpRight className={'ml-3'}/>
+              <span className={'text-slate-700'}>moa.party</span>
+              {/*<BsBoxArrowUpRight className={'ml-3 text-slate-700'}/>*/}
             </a>
           </div>
         </div>
@@ -87,13 +113,15 @@ const StartPage: NextPage<Props> = () => {
           <p className={'text-left md:w-2/3 mb-5 text-stone-500'}>
             Add your Mastodon username in your Twitter bio
           </p>
-          <div className={'w-full flex flex-row items-center mt-3 justify-end'}>
+          <div className={'w-full flex flex-row items-center mt-3'}>
             <a
-              className={'flex flex-row items-center justify-center px-3 py-2 bg-pink-500 rounded text-white w-1/2 text-center'}
+              className={'flex flex-row items-center justify-center text-center'}
               href={'https://twitter.com/settings/profile'}
+              target={'_blank'}
+              rel={'noreferrer'}
             >
-              <span>Let&apos;s go</span>
-              <BsBoxArrowUpRight className={'ml-3'}/>
+              <span className={'text-slate-700'}>twitter.com/settings/profile</span>
+              {/*<BsBoxArrowUpRight className={'ml-3 text-slate-700'}/>*/}
             </a>
           </div>
         </div>
@@ -107,19 +135,21 @@ const StartPage: NextPage<Props> = () => {
           <p className={'text-left md:w-2/3 mb-5 text-stone-500'}>
             Find your people with Debirdify
           </p>
-          <div className={'w-full flex flex-row items-center mt-3 justify-end'}>
+          <div className={'w-full flex flex-row items-center mt-3'}>
             <a
-              className={'flex flex-row items-center justify-center px-3 py-2 bg-pink-500 rounded text-white w-1/2 text-center'}
+              className={'flex flex-row items-center justify-center text-center'}
               href={'https://pruvisto.org/debirdify/'}
+              target={'_blank'}
+              rel={'noreferrer'}
             >
-              <span>Let&apos;s go</span>
-              <BsBoxArrowUpRight className={'ml-3'}/>
+              <span className={'text-slate-700'}>pruvisto.org/debirdify</span>
+              {/*<BsBoxArrowUpRight className={'ml-3 text-slate-700'}/>*/}
             </a>
           </div>
         </div>
       </div>
       <div>
-        <h1>That's it!</h1>
+        <h1>That&apos;s it!</h1>
         <p>Now you can move over to Mastodon whenever you like and your Twitter followers can find you there as they move over as well.</p>
       </div>
     </PageContainer>
