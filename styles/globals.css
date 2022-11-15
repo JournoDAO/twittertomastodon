@@ -180,7 +180,7 @@ nav ul li {
 }
 
 nav ul li a {
-  @apply no-underline hover:underline
+  @apply no-underline hover:underline flex flex-row justify-center items-center
 }
 
 ul.card-list li {

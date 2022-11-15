@@ -2,7 +2,7 @@ import React, { FunctionComponent, useEffect, useState, } from 'react'
 import { useRouter, }                                     from 'next/router'
 import { IoMdMenu, IoMdClose, }                           from 'react-icons/io'
 import Link                                               from 'next/link'
-import { FaMastodon, FaTwitter, }                         from 'react-icons/fa'
+import { FaMastodon, FaTwitter, FaGithub, }               from 'react-icons/fa'
 import { ImArrowRight, }                                  from 'react-icons/im'
 
 type Props = {}
@@ -69,6 +69,9 @@ const Nav: FunctionComponent<Props> = () => {
             Future Tools
           </a>
         </Link>
+        <a href={'https://github.com/JournoDAO/twittertomastodon'}>
+          <FaGithub className={'text-white'} />
+        </a>
 
       </div>
       <div className={'flex flex-row w-full justify-between p-3 md:hidden'}>
@@ -172,6 +175,11 @@ const Nav: FunctionComponent<Props> = () => {
               </a>
             </Link>
 
+          </li>
+          <li className={'text-center'}>
+            <a href={'https://github.com/JournoDAO/twittertomastodon'}>
+              <FaGithub className={''}/>
+            </a>
           </li>
         </ul>
         <div className={'flex flex-row justify-center w-full mt-auto'}>
